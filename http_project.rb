@@ -25,25 +25,29 @@ loop do
     response = "<pre>#{info}</pre>"
   elsif reader.path(request_lines) == "/hello"
     response = "<pre> Hello world (#{request_count})\r\n #{info}\r\n </pre>"
+  elsif reader.path(request_lines) == "/datetime"
+    response = "<pre>#{Time.new.strftime('%l:%M%p on %A, %B %-d %Y')}\r\n #{info}</pre>"
+  elsif reader.path(request_lines) == "/shutdown"
+    client.close
+    break
   end
   # response = "<pre>" + request_lines.join("\n") + "</pre>"
   # output = "<html><head></head><body>#{request_count}\r\n #{response}\r\n #{request_lines.inspect}</body></html>"
   output = "<html><head></head><body>#{response}</body></html>"
 
-  # headers = ["http/1.1 200 ok",
-  #           "date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %z')}",
-  #           "server: ruby",
-  #           "content-type: text/html; charset=iso-8859-1",
-  #           "content-length: #{output.length}\r\n\r\n"].join("\r\n")
+  headers = ["http/1.1 200 ok",
+            "date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %z')}",
+            "server: ruby",
+            "content-type: text/html; charset=iso-8859-1",
+            "content-length: #{output.length}\r\n\r\n"].join("\r\n")
 
-  # client.puts headers
+  client.puts headers
   client.puts output
 
   # puts ["Wrote this response:", headers, output].join("\n")
   # puts "\nResponse complete, exiting."
 
 end
-client.close
 
 # ~> LoadError
 # ~> cannot load such file -- reader
