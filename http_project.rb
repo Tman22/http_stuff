@@ -15,13 +15,16 @@ loop do
   verb_pro_path = request_lines[0].split
   host_port = request_lines[1].split(":")
 
-  info = "<pre> Verb: #{verb_pro_path[0]}\r
+  info = "<pre>  Verb: #{verb_pro_path[0]}\r
   Path: #{verb_pro_path[1]}\r
   Protocal: #{verb_pro_path[2]}\r
   Host:#{host_port[1]}\r
-  Port: #{host_port[2]}\r</pre>"
+  Port: #{host_port[2]}\r
+  Origin:#{host_port[1]}\r
+  #{request_lines[4]}
+  </pre>"
 
-  puts "Got this request: #{request_lines.count})"
+  puts "Got this request: (#{request_count})"
 
   puts "Sending response."
   response = "<pre> Hello world (#{request_count})\r\n #{info}\r\n #{request_lines.inspect} </pre>"
@@ -40,5 +43,6 @@ loop do
   #
   # puts ["Wrote this response:", headers, output].join("\n")
   # puts "\nResponse complete, exiting."
+
 end
 client.close
