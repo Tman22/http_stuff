@@ -1,11 +1,10 @@
+require 'pry'
 
 class Reader
 
   def read(array)
     verb_pro_path = array[0].split
     host_port = array[1].split(":")
-    # parameter = array.split("?")[1]
-
     "<pre>    Verb: #{verb_pro_path[0]}\r
     Path: #{verb_pro_path[1]}\r
     Protocal: #{verb_pro_path[2]}\r
@@ -19,9 +18,7 @@ class Reader
   def path(array)
     verb_pro_path = array[0].split
     path_name = verb_pro_path[1].to_s
-    # if path_name.include?("?")
       path_name.split("?")[0]
-    # end
   end
 
   def parameters(array)
@@ -32,11 +29,31 @@ class Reader
   end
 
   def values(array)
-    parm = parameters(array)
-    value = parm.map do |word|
+    new_array = parameters(array)
+    value = new_array.map do |word|
       word.split("=")[1]
     end
   end
 
+  def dictionary(array)
+    dict = File.read("/usr/share/dict/words")
+    values(array).map do |word|
+      dict.include?(word)
+    end
+  end
+
+  def word_with_array(array)
+    values(array).zip(dictionary(array))
+  end
+
+  def word_exist(array)
+    word_with_array(array).map do |word|
+      if word[1] == true
+        "#{word[0]} is a known word"
+      else
+        "#{word[0]} is not a known word"
+      end
+    end
+  end
 
 end
