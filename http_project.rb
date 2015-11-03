@@ -1,5 +1,5 @@
-require 'socket'                  # => true
-require_relative 'reader'                  # ~> LoadError: cannot load such file -- reader
+require 'socket'
+require_relative 'reader'
 # require 'minitest/autorun'
 tcp_server = TCPServer.new(9292)
 request_count = 0
@@ -22,16 +22,19 @@ loop do
 
   puts "Sending response."
   if reader.path(request_lines) == "/"
-    response = "<pre>#{info}</pre>"
+    response = "<pre>#{info}\n #{request_lines.inspect}</pre>"
   elsif reader.path(request_lines) == "/hello"
     response = "<pre> Hello world (#{request_count})\r\n #{info}\r\n </pre>"
   elsif reader.path(request_lines) == "/datetime"
     response = "<pre>#{Time.new.strftime('%l:%M%p on %A, %B %-d %Y')}\r\n #{info}</pre>"
+  # elsif reader.path(request_lines) == "/word_search?"
+  #   response = "<pre> #{word_serach} is a known word."
   elsif reader.path(request_lines) == "/shutdown"
     client.close
     break
   end
   # response = "<pre>" + request_lines.join("\n") + "</pre>"
+
   # output = "<html><head></head><body>#{request_count}\r\n #{response}\r\n #{request_lines.inspect}</body></html>"
   output = "<html><head></head><body>#{response}</body></html>"
 
@@ -48,10 +51,3 @@ loop do
   # puts "\nResponse complete, exiting."
 
 end
-
-# ~> LoadError
-# ~> cannot load such file -- reader
-# ~>
-# ~> /Users/taylormoore/.rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
-# ~> /Users/taylormoore/.rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
-# ~> /Users/taylormoore/turing/1module/http_stuff/http_project.rb:2:in `<main>'
