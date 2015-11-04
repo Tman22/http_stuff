@@ -3,6 +3,8 @@ require './reader'
 require './date_time'
 require './output'
 require './word_validation'
+require './game'
+require './path'
 
 tcp_server = TCPServer.new(9292)
 request_count = 0
@@ -38,12 +40,13 @@ loop do
       response = "<pre>#{date}\r\n #{info}</pre>"
       show.output(response)
     elsif reader.path == "/word_search"
-      words = Word_validation.new(reader.parameters)
+      words = Word_validation.new(reader.values)
       word_output = words.word_output
       response = "<pre>#{word_output} \r\n #{info} </pre>"
       show.output(response)
     elsif reader.path == "/game"
-      responde = "<pre> #{}      \r\n #{info} </pre>"
+      # game = Game.new
+      response = "<pre> #{game.check_guess(reader.values.join.to_i)} \r\n #{info}</pre>"
       show.output(response)
     elsif reader.path == "/shutdown"
       response = "<pre> Total requests: #{request_count}</pre>"
@@ -53,10 +56,12 @@ loop do
     end
   when "POST"
     if reader.path == "/start_game"
+      game = Game.new
       response = "<pre> START GAME WOOT! \r\n #{info}</pre>"
       show.output(response)
     elsif reader.path == "/game"
-      #something else
+        response = "<pre> #{game.check_guess(reader.values.join.to_i)} \r\n #{info}</pre>"
+        show.output(response)
     end
   end
   # unless reader.path(request_lines "/favicon.ico")

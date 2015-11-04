@@ -42,9 +42,11 @@ class Reader
     parameters.split("&")
   end
 
-  def game_info
-    path_name = split_request
-    parma = path_name.split("?")[1]
-    parama.split("=")[1]
+  def values
+    new_array = parameters
+    value = new_array.map do |word|
+      word.split("=")[1]
+    end
   end
+
 end
