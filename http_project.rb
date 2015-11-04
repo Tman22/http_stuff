@@ -26,26 +26,40 @@ loop do
   puts "Got this request: (#{request_count})"
   puts "Sending response."
 
-  # unless reader.path(request_lines "/favicon.ico")
-  if reader.path == "/"
-    response = "<pre>#{info}\n #{request_lines.inspect} </pre>"
-    show.output(response)
-  elsif reader.path == "/hello"
-    response = "<pre> Hello world (#{request_count})\r\n #{info}\r\n </pre>"
-    show.output(response)
-  elsif reader.path == "/datetime"
-    response = "<pre>#{date}\r\n #{info}</pre>"
-    show.output(response)
-  elsif reader.path == "/word_search"
-    words = Word_validation.new(reader.parameters)
-    word_output = words.word_output
-    response = "<pre> #{word_output} \r\n #{info} </pre>"
-    show.output(response)
-  elsif reader.path == "/shutdown"
-    response = "<pre> Total requests: #{request_count}</pre>"
-    show.output(response)
-    client.close
-    break
+  case reader.find_verb
+  when "GET"
+    if reader.path == "/"
+      response = "<pre>#{info}\n #{request_lines.inspect} </pre>"
+      show.output(response)
+    elsif reader.path == "/hello"
+      response = "<pre> Hello world (#{request_count})\r\n #{info}\r\n </pre>"
+      show.output(response)
+    elsif reader.path == "/datetime"
+      response = "<pre>#{date}\r\n #{info}</pre>"
+      show.output(response)
+    elsif reader.path == "/word_search"
+      words = Word_validation.new(reader.parameters)
+      word_output = words.word_output
+      response = "<pre>#{word_output} \r\n #{info} </pre>"
+      show.output(response)
+    elsif reader.path == "/game"
+      responde = "<pre> #{}      \r\n #{info} </pre>"
+      show.output(response)
+    elsif reader.path == "/shutdown"
+      response = "<pre> Total requests: #{request_count}</pre>"
+      show.output(response)
+      client.close
+      break
+    end
+  when "POST"
+    if reader.path == "/start_game"
+      response = "<pre> START GAME WOOT! \r\n #{info}</pre>"
+      show.output(response)
+    elsif reader.path == "/game"
+      #something else
+    end
   end
+  # unless reader.path(request_lines "/favicon.ico")
+
 
 end

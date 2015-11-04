@@ -37,7 +37,7 @@ class Word_validation
     words_result = word_exist
     end_result = ""
     words_result.each do |word|
-      end_result << "#{word} \n"
+      end_result << "#{word}\n"
     end
     end_result
   end

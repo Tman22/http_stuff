@@ -20,6 +20,12 @@ class Reader
     </pre>"
   end
 
+  def find_verb
+    verb_pro_path = @request_lines[0].split
+    verb_pro_path[0].to_s
+    #make test
+  end
+
   def split_request
     verb_pro_path = @request_lines[0].split
     verb_pro_path[1].to_s
@@ -34,5 +40,11 @@ class Reader
     path_name = split_request
     parameters = path_name.split("?")[1]
     parameters.split("&")
+  end
+
+  def game_info
+    path_name = split_request
+    parma = path_name.split("?")[1]
+    parama.split("=")[1]
   end
 end
