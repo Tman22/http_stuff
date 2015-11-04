@@ -33,4 +33,12 @@ class Word_validation
     end
   end
 
+  def word_output
+    words_result = word_exist
+    end_result = ""
+    words_result.each do |word|
+      end_result << "#{word} \n"
+    end
+    end_result
+  end
 end

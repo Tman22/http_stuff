@@ -38,12 +38,8 @@ loop do
     show.output(response)
   elsif reader.path == "/word_search"
     words = Word_validation.new(reader.parameters)
-    words_result = words.word_exist
-    end_result = ""
-    words_result.each do |word|
-      end_result << "#{word} \n"
-    end
-    response = "<pre> #{end_result} \r\n #{info} </pre>"
+    word_output = words.word_output
+    response = "<pre> #{word_output} \r\n #{info} </pre>"
     show.output(response)
   elsif reader.path == "/shutdown"
     response = "<pre> Total requests: #{request_count}</pre>"
