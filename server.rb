@@ -32,7 +32,10 @@ class Parsers
     "<pre>#{word_output} \r\n #{info} </pre>"
   end
 
-  def shutdown
-    "<pre> Total requests: </pre>"
+  def shutdown(request_count)
+    "<pre> Total requests: #{request_count} </pre>"
+    # client.puts headers
+    # client.puts output
+    # client.close
   end
 end

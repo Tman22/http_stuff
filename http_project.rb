@@ -31,10 +31,15 @@ loop do
   when "/hello" then response = parser.hello(request_count)
   when "/datetime" then response = parser.date_time
   when "/word_search" then response = parser.word_search
-  when "/shutdown" then response = parser.shutdown
+  when "/shutdown" then response = parser.shutdown(request_count)
   end
 
-      show.output(response)
+
+  show.output(response)
+    if parser.path == "/shutdown"
+      client.close
+      break
+    end
 
   # unless reader.path(request_lines "/favicon.ico")
 end
