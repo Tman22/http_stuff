@@ -1,6 +1,5 @@
 require './reader'
 require './word_validation'
-require './game'
 require './date_time'
 require './output'
 
@@ -11,7 +10,6 @@ class Parsers
     @date = Date_time.new.date_format
     @info = reader.read
     @path = reader.path
-    # @request_count = count
   end
 
   def home
@@ -35,4 +33,5 @@ class Parsers
   def shutdown(request_count)
     "<pre> Total requests: #{request_count} </pre>"
   end
+
 end

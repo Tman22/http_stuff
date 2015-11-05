@@ -12,23 +12,21 @@ guess = []
 
 loop do
   client = tcp_server.accept
-  # request_lines = []
   request_lines = []
+  request_number = []
+  webkits = 0
+
   while line = client.gets and !line.chomp.empty?
     request_lines << line.chomp
   end
-  webkits = 0
-  request_number = []
+
   show = Output.new(client)
   parser = Parsers.new(request_lines)
   reader = Reader.new(request_lines)
 
-
   unless reader.path == "/favicon.ico"
     request_count += 1
-  puts "Ready for a request"
-
-
+    puts "Ready for a request"
     puts "Got this request: (#{request_count})"
     puts "Sending response."
 
@@ -49,19 +47,18 @@ loop do
       when "/game"
         until webkits == 2
           line = client.gets
-          webkits += 1 if line[0..5] == "------"
+          webkits += 1 if line.start_with?("------")
           request_number << line.chomp
         end
         guess = request_number[3].to_i
         client.puts "HTTP/1.1 302 Found\r\nLocation: http://127.0.0.1:9292/game"
       end
     end
-
     show.output(response)
       if reader.path == "/shutdown"
         client.close
         break
       end
     end
-  client.close  # unless reader.path(request_lines "/favicon.ico")
+  client.close
 end

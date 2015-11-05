@@ -8,10 +8,10 @@ class Game
   def start_game
     "<pre> I WANT TO PLAY A GAME </pre>"
   end
-
-  def guess(guess)
-    guess
-  end
+  #
+  # def guess(guess)
+  #   guess
+  # end
 
   def check_guess(guess)
     if @number == guess
