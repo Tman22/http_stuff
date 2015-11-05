@@ -5,9 +5,6 @@ class Output
     @client = client
   end
 
-# add back in to output
-#
-
   def output(response, info)
     jigsaw = "http://cocainekings.drupalgardens.com/sites/g/files/g1324011/f/201310/Jigsaw.jpg"
     output = "<html><head></head><body>#{response}\r\n#{info}\r\n<img src=#{jigsaw}></body></html>"
