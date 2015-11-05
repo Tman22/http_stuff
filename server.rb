@@ -54,7 +54,7 @@ loop do
         client.puts "HTTP/1.1 302 Found\r\nLocation: http://127.0.0.1:9292/game"
       end
     end
-    show.output(response)
+    show.output(response, reader.read)
       if reader.path == "/shutdown"
         client.close
         break
