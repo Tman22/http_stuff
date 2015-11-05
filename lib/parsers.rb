@@ -1,7 +1,7 @@
-require './reader'
-require './word_validation'
-require './date_time'
-require './output'
+require './lib/reader'
+require './lib/word_validation'
+require './lib/date_time'
+require './lib/output'
 
 class Parsers
   attr_reader :info, :reader, :date, :path

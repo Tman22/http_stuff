@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative 'date_time'
+require './lib/date_time'
 
 class DateTimeTest < Minitest::Test
 

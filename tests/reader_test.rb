@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative 'reader'
-require_relative 'word_validation'
+require './lib/reader'
+require './lib/word_validation'
 
 class Reader_test < Minitest::Test
 

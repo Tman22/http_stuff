@@ -1,6 +1,6 @@
 require 'minitest/autorun'
-require_relative 'word_validation'
-require_relative 'reader'
+require './lib/word_validation'
+require './lib/reader'
 
 class WordValidationTest < Minitest::Test
 

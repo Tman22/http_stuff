@@ -1,6 +1,6 @@
 require 'socket'
 require 'minitest/autorun'
-require './output'
+require './lib/output'
 #require './lib/output'
 
 class OutputTest < Minitest::Test
