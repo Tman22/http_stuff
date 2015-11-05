@@ -26,18 +26,18 @@ class Reader
     #make test
   end
 
-  def split_request
+  def split_path_and_params
     verb_pro_path = @request_lines[0].split
     verb_pro_path[1].to_s
   end
 
   def path
-    path_name = split_request
+    path_name = split_path_and_params
     path_name.split("?")[0]
   end
 
   def parameters
-    path_name = split_request
+    path_name = split_path_and_params
     parameters = path_name.split("?")[1]
     parameters.split("&")
   end

@@ -16,13 +16,19 @@ loop do
   request_number = []
   webkits = 0
 
+# let's clean this into a method --> get_request(request_lines)
   while line = client.gets and !line.chomp.empty?
     request_lines << line.chomp
   end
 
+  puts request_lines.inspect
+
   show = Output.new(client)
   parser = Parsers.new(request_lines)
   reader = Reader.new(request_lines)
+
+  puts reader.read
+
 
   unless reader.path == "/favicon.ico"
     request_count += 1
@@ -45,20 +51,24 @@ loop do
       when "/start_game"
         response = game.start_game
       when "/game"
+        # let's clean this into a method --> get_request_plus_guess(request_number)
         until webkits == 2
           line = client.gets
           webkits += 1 if line.start_with?("------")
           request_number << line.chomp
         end
+        # ending here
         guess = request_number[3].to_i
         client.puts "HTTP/1.1 302 Found\r\nLocation: http://127.0.0.1:9292/game"
       end
     end
+
     show.output(response, reader.read)
-      if reader.path == "/shutdown"
-        client.close
-        break
-      end
+
+    if reader.path == "/shutdown"
+      client.close
+      break
     end
+  end
   client.close
 end
