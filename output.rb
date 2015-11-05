@@ -7,7 +7,7 @@ class Output
 
   def output(response, info)
     jigsaw = "http://cocainekings.drupalgardens.com/sites/g/files/g1324011/f/201310/Jigsaw.jpg"
-    output = "<html><head></head><body>#{response}\r\n#{info}<img src=#{jigsaw}></body></html>"
+    output = "<html><head></head><body>#{response}\r\n#{info}\r\n<img src=#{jigsaw}></body></html>"
     headers = ["http/1.1 200 ok",
               "date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %z')}",
               "server: ruby",

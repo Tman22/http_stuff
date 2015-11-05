@@ -4,6 +4,21 @@ require './parsers'
 require './game'
 require './reader'
 
+def get_request(client, array)
+  while line = client.gets and !line.chomp.empty?
+    array << line.chomp
+  end
+end
+
+def get_request_plus_guess(client, array)
+  until webkits == 2
+    line = client.gets
+    webkits += 1 if line.start_with?("------")
+    array << line.chomp
+  end
+end
+
+
 tcp_server = TCPServer.new(9292)
 request_count = 0
 empty_line_counter = 0
@@ -16,9 +31,7 @@ loop do
   request_number = []
   webkits = 0
 
-  while line = client.gets and !line.chomp.empty?
-    request_lines << line.chomp
-  end
+  get_request(client, request_lines)
 
   show = Output.new(client)
   parser = Parsers.new(request_lines)
@@ -45,20 +58,18 @@ loop do
       when "/start_game"
         response = game.start_game
       when "/game"
-        until webkits == 2
-          line = client.gets
-          webkits += 1 if line.start_with?("------")
-          request_number << line.chomp
-        end
+        get_request_plus_guess(client, request_number)
         guess = request_number[3].to_i
         client.puts "HTTP/1.1 302 Found\r\nLocation: http://127.0.0.1:9292/game"
       end
     end
+
     show.output(response, reader.read)
-      if reader.path == "/shutdown"
-        client.close
-        break
-      end
+
+    if reader.path == "/shutdown"
+      client.close
+      break
     end
+  end
   client.close
 end

@@ -1,3 +1,4 @@
+require 'socket'
 require 'minitest/autorun'
 require './output'
 #require './lib/output'
@@ -5,7 +6,15 @@ require './output'
 class OutputTest < Minitest::Test
 
   def test_output_object_exists
-    show = Output.new
+    server = TCPServer.new(9292)
+    client = server.accept
+    show = Output.new(client)
+    assert show
+    client.close
+  end
+
+  def test_output
+    skip
   end
 
 end
