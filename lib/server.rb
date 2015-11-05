@@ -6,18 +6,19 @@ require './lib/reader'
 
 def get_request(client, array)
   while line = client.gets and !line.chomp.empty?
+    binding.pry
     array << line.chomp
   end
 end
 
 def get_request_plus_guess(client, array)
+  webkits = 0
   until webkits == 2
     line = client.gets
     webkits += 1 if line.start_with?("------")
     array << line.chomp
   end
 end
-
 
 tcp_server = TCPServer.new(9292)
 request_count = 0
@@ -29,7 +30,6 @@ loop do
   client = tcp_server.accept
   request_lines = []
   request_number = []
-  webkits = 0
 
   get_request(client, request_lines)
 
