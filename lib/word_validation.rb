@@ -3,13 +3,6 @@ class Word_validation
   def initialize(values)
     @values = values
   end                         # => :initialize
-  #
-  # def values
-  #   new_array = parameters
-  #   value = new_array.map do |word|
-  #     word.split("=")[1]
-  #   end
-  # end
 
   def dictionary
     dict = File.read("/usr/share/dict/words")

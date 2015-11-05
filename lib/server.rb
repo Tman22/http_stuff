@@ -1,8 +1,8 @@
 require 'socket'
-require './output'
-require './parsers'
-require './game'
-require './reader'
+require './lib/output'
+require './lib/parsers'
+require './lib/game'
+require './lib/reader'
 
 def get_request(client, array)
   while line = client.gets and !line.chomp.empty?
