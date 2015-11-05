@@ -4,6 +4,6 @@ require './server'
 
 class ServerTest < Minitest::Test
 
-  
+
 
 end

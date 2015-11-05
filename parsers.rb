@@ -1,14 +1,13 @@
-require './reader'
-require './word_validation'
-require './date_time'
-require './output'
+require './lib/reader'
+require './lib/word_validation'
+require './lib/date_time'
+require './lib/output'
 
 class Parsers
   attr_reader :info, :reader, :date, :path
   def initialize(request_lines)
     @reader = Reader.new(request_lines)
     @date = Date_time.new.date_format
-    # @info = reader.read
     @path = reader.path
   end
 
@@ -26,9 +25,8 @@ class Parsers
 
   def word_search
     word = Word_validation.new(reader.values)
-    word_output = word.word_output
-    "<pre>#{word_output}</pre>"
-    #?: can we eliminate a line and interpolte #{word.word_output}
+    # word_output = word.word_output
+    "<pre>#{word.word_output}</pre>"
   end
 
   def shutdown(request_count)
