@@ -42,7 +42,7 @@ class Reader
     parameters.split("&")
   end
 
-  def values
+  def values #rewrite tests
     new_array = parameters
     value = new_array.map do |word|
       word.split("=")[1]

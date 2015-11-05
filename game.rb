@@ -5,6 +5,10 @@ class Game
     @guesses = 0
   end
 
+  def start_game
+    "<pre> I WANT TO PLAY A GAME </pre>"
+  end
+
   def guess(guess)
     guess
   end
