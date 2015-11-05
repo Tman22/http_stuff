@@ -23,7 +23,6 @@ class Reader
   def find_verb
     verb_pro_path = @request_lines[0].split
     verb_pro_path[0].to_s
-    #make test
   end
 
   def split_path_and_params
