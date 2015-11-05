@@ -8,7 +8,6 @@ class Parsers
   def initialize(request_lines)
     @reader = Reader.new(request_lines)
     @date = Date_time.new.date_format
-    # @info = reader.read
     @path = reader.path
   end
 
@@ -26,9 +25,8 @@ class Parsers
 
   def word_search
     word = Word_validation.new(reader.values)
-    word_output = word.word_output
-    "<pre>#{word_output}</pre>"
-    #?: can we eliminate a line and interpolte #{word.word_output}
+    # word_output = word.word_output
+    "<pre>#{word.word_output}</pre>"
   end
 
   def shutdown(request_count)

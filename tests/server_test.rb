@@ -1,6 +1,5 @@
 require 'minitest/autorun'
 require './lib/server'
-#require './lib/server'
 
 # getting error that 9292 is already in use. but it works for the output_test so i don't know what's going on.
 
