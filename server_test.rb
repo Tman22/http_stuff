@@ -1,32 +1,31 @@
 require 'minitest/autorun'
-require 'socket'
 require './server'
 #require './lib/server'
 
-
+# getting error that 9292 is already in use. but it works for the output_test so i don't know what's going on.
 
 class ServerTest < Minitest::Test
 
-  attr_reader :tcp_server, :client
-
-  # error for wrong number of argumenets...1 for 0...?
-  def initialize
-    @tcp_server = TCPServer.new(9292)
-    @client = @tcp_server.accept
-  end
-
   def test_server_exists
-    assert @tcp_server
+    server = TCPServer.new(9292)
+    assert server
+    client = server.accept
+    client.close
   end
 
   def test_server_accepts_client
-    assert @client
+    server = TCPServer.new(9292)
+    client = server.accept
+    assert client
+    client.close
   end
 
   def test_server_closes_connection
-    assert @client
-    @client.close
-    refute @client
+    server = TCPServer.new(9292)
+    client = server.accept
+    assert client
+    client.close
+    refute client
   end
 
 end

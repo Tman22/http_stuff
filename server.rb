@@ -21,14 +21,9 @@ loop do
     request_lines << line.chomp
   end
 
-  puts request_lines.inspect
-
   show = Output.new(client)
   parser = Parsers.new(request_lines)
   reader = Reader.new(request_lines)
-
-  puts reader.read
-
 
   unless reader.path == "/favicon.ico"
     request_count += 1
